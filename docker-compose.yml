@@ -1,0 +1,37 @@
+version: '2'
+
+volumes:
+  tvheadend:
+    driver: 'local'
+
+
+##TVH
+services:
+  tvheadend:
+    build:
+      context: ./tvheadend
+    volumes:
+      - ./tvheadend/config:/home/hts/.hts/tvheadend
+      - ./tvheadend/recordings:/home/hts/recordings
+      - ./tvheadend/timeshift:/home/hts/timeshift
+    ports:
+      - 9981:9981
+      - 9982:9982
+      - 554:554
+    network_mode: "host"
+    restart: "always"
+    devices:
+      - /dev/dri:/dev/dri
+      #- /dev/dvb:/dev/dvb
+
+  oscam:
+    build:
+      context: ./oscam
+    volumes:
+      - ./oscam/config:/usr/local/etc
+    network_mode: "host"
+    restart: "always"
+    ports:
+      - 8888:8888
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0

@@ -1,0 +1,8 @@
+config/bouquet/*
+config/dvr/*
+epggrab/*
+input/*
+profile/*
+.lock
+config
+epgdb.v2
